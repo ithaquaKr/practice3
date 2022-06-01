@@ -29,7 +29,7 @@ function show(data) {
     let tab = 
         `<tr>
           <th>Name</th>
-          <th>Birthday</th>
+          <th>Year</th>
           <th>University</th>
           <th>Major</th>
          </tr>`;
