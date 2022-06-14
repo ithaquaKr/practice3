@@ -38,31 +38,28 @@ services:
 
     fluentd:
         build: ./fluentd
-        # volumes:
-        # - ./fluentd/conf:/fluentd/etc
+        restart: always
         ports:
         - "24224:24224"
         - "24224:24224/udp"
-        extra_hosts:
-        - "elasticsearch:27.79.232.121"
-    #     depends_on:
-    #         - elasticsearch
+        depends_on:
+            - elasticsearch
 
-    # elasticsearch:
-    #     image: elasticsearch:8.2.2
-    #     ports: # Exposes the default port 9200
-    #         - 9200:9200
-    #     environment:
-    #         - discovery.type=single-node # Runs as a single-node
-    #         - xpack.security.enabled=false
+    elasticsearch:
+        image: elasticsearch:8.2.2
+        ports: # Exposes the default port 9200
+            - 9200:9200
+        environment:
+            - discovery.type=single-node # Runs as a single-node
+            - xpack.security.enabled=false
 
-    # kibana:
-    #     image: kibana:7.17.0
-    #     links: # Links kibana service to the elasticsearch container
-    #         - elasticsearch
-    #     depends_on:
-    #         - elasticsearch
-    #     ports: # Runs kibana service on default port 5601
-    #         - 5601:5601
-    #     environment: # Defined host configuration
-    #         - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    kibana:
+        image: kibana:7.17.0
+        links: # Links kibana service to the elasticsearch container
+            - elasticsearch
+        depends_on:
+            - elasticsearch
+        ports: # Runs kibana service on default port 5601
+            - 5601:5601
+        environment: # Defined host configuration
+            - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
