@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.9
+FROM fluent/fluentd:v1.14
 USER root
 
 RUN apk add --no-cache --update --virtual .build-deps \
@@ -12,4 +12,4 @@ RUN apk add --no-cache --update --virtual .build-deps \
 # copy fluentd configuration from host image
 COPY ./conf/fluent.conf /fluentd/etc/
 
-USER fluent
+# USER fluent
