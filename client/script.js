@@ -1,7 +1,7 @@
 
 // api url
 const api_url = 
-      "http://127.0.0.1:5000";
+      "http://139.177.189.117:5000";    //Add host IP 
   
 // Defining async function
 async function getapi(url) {

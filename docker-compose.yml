@@ -23,7 +23,23 @@ services:
             - ./client/nginx/conf.d/:/etc/nginx/conf.d/
             - ./client:/usr/share/nginx/html
 
+        logging:
+            driver: "fluentd"
+            options:
+                fluentd-address: localhost:24224
+                tag: nginx.access
+        depends_on: 
+            - fluentd
+
     mongodb:
         image: mongo:5.0
         volumes:
             - .docker/data/db:/data/db
+
+    fluentd:
+        build: ./fluentd
+        # volumes:
+        # - ./fluentd/conf:/fluentd/etc
+        ports:
+        - "24224:24224"
+        - "24224:24224/udp"
